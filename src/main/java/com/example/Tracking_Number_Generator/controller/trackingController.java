@@ -29,12 +29,8 @@ public class trackingController {
         String customer_name,
         String customer_slug) {
 
-        if (created_at.contains(" ")) {
-            created_at = created_at.replace(" ", "+");
-        }
-
         trackingNumberResponse result = trackingService.generateTrackingNumber(
-                origin_country_id, destination_country_id, created_at
+                origin_country_id, destination_country_id, created_at, customer_id, customer_name
         );
 
         return ResponseEntity.ok(result);
