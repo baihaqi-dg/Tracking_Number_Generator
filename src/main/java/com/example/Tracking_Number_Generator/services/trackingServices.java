@@ -1,12 +1,10 @@
 package com.example.Tracking_Number_Generator.services;
 
 import java.time.OffsetDateTime;
-import java.time.format.DateTimeParseException;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.example.Tracking_Number_Generator.dto.trackingNumberResponse;
 import com.example.Tracking_Number_Generator.repository.trackingNumberSeq;
 
 @Service
@@ -18,7 +16,7 @@ public class trackingServices {
         this.trackingRepo = trackingRepo;
     }
 
-    public Map<String, String> generateTrackingNumber(String origin_country_id, 
+    public trackingNumberResponse generateTrackingNumber(String origin_country_id, 
                                          String destination_country_id, 
                                          String created_at) {
         
@@ -43,11 +41,7 @@ public class trackingServices {
             throw new IllegalStateException("Generated tracking number is invalid: " + trackingNumber);
         }
 
-        Map<String, String> result = new HashMap<>();
-        result.put("tracking_number", trackingNumber);
-        result.put("created_at", createdDate.toString()); // RFC 3339 format
-
-        return result;
+        return new trackingNumberResponse(trackingNumber,createdDate.toString());
     }
 
 }
